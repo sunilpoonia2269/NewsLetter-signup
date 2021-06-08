@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
 const request = require("request");
+const config = require("./config.js");
+
+console.log(config);
+
+
 
 const app = express();
 app.use(express.static("public"));
@@ -22,11 +27,14 @@ app.post("/", function (req, res) {
 
     // API Variables
     const dataCenter = "us6";
-    const url = `https://${dataCenter}.api.mailchimp.com/3.0/lists/efff1aa5a4`;
+    const apiKey = config.apiKey
+    const listid = config.listId;
+    const url = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listid}`;
+
 
     const options = {
         method: "POST",
-        auth: "MarcosOP:aaae08b17727d8fd0b976aee747f23f8-us6",
+        auth: apiKey,
     };
 
     const data = {
